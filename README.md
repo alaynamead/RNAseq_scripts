@@ -3,6 +3,8 @@
 Set of scripts for processing RNAseq data files.
 
 ## convert_qseq_to_fastq.py:
+Converts qseq sequence files to fastq files.
+
 Usage: python3 convert_qseq_to_fastq -i [input qseq file] -o [output fastq file] [options]
 
 Written in python 3.
