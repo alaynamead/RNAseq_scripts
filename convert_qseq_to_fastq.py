@@ -28,8 +28,7 @@ outfile = open(args.outfile, 'w')
 # line must be converted to list first
 def convert(read):
     # define name of read
-    readname = ':'.join(read[0:7] + list(read[10]))
-#    output = '@' + readname + '\n' + read[8] + '\n' + '+' + '\n' + read[9]
+    readname = ':'.join(read[0:8] + list(read[10]))
     output = '@{}\n{}\n+\n{}\n'.format(readname, read[8], read[9])
     return output
 
