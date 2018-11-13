@@ -24,11 +24,15 @@ else:
     infile = open(args.infile)
 outfile = open(args.outfile, 'w')
 
+# function to convert coordinates from qseq to fastq format
+def coords(coord):
+    return str(int(1000.5+10*float(coord)))
+
 # make function to convert a line of a seq file to fastq format
 # line must be converted to list first
 def convert(read):
     # define name of read
-    readname = ':'.join(read[0:8] + list(read[10]))
+    readname = ':'.join(read[0:4] + [coords(read[4])] + [coords(read[5])] + read[6:8] + [read[10]])
     output = '@{}\n{}\n+\n{}\n'.format(readname, read[8], read[9])
     return output
 
