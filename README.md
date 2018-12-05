@@ -44,4 +44,4 @@ ACTGATA (the actual barcode)
 ATTGATA (the barcode with one base mismatch in the second position)
 
 
-The script will output files named after the barcode sequence: ACTGATA_read1.fastq (and ACTGATA_read2.fastq if paired-end), as well as a file for the unmatched reads: NOMATCH_read1.fastq and NOMATCH_read2.fastq.
+The script will output files named after the barcode sequence: index_25.fastq (index25_read1.fastq and index25_read2.fastq if paired-end), as well as a file for the unmatched reads: NOMATCH.fastq.
