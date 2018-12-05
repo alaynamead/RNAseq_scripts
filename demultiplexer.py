@@ -48,12 +48,18 @@ elif paired == 'single':
 # which barcode set to use?
 # Illumina set A
 if bar_set == 'set_A':
-    barcodes = ["CGATGTA", "AGTCAAC", "TGACCAA", "AGTTCCG", "ACAGTGA", "ATGTCAG",
-                "GCCAATA", "CCGTCCC", "CAGATCA", "GTCCGCA", "CTTGTAA", "GTGAAAC"]
+    barcodes = ["CGATGTA", "TGACCAA", "ACAGTGA", "GCCAATA", "CAGATCA", "CTTGTAA",
+               "AGTCAAC", "AGTTCCG", "ATGTCAG", "CCGTCCC", "GTCCGCA", "GTGAAAC"]
+    barcode_names = ["index_02", "index_04", "index_05", "index_06", "index_07", "index_12",
+                    "index_13", "index_14", "index_15", "index_16", "index_18", "index_19"]
+
 # Illumina set B
 if bar_set == 'set_B':
-    barcodes = ["ATCACGA", "GTGGCCT", "TTAGGCA", "GTTTCGG", "ACTTGAA", "CGTACGT",
-                "GATCAGA", "GAGTGGA", "TAGCTTA", "ACTGATA", "GGCTACA", "ATTCCTT"]
+    barcodes = ["ATCACGA", "TTAGGCA", "ACTTGAA", "GATCAGA", "TAGCTTA", "GGCTACA",
+               "GTGGCCT", "GTTTCGG", "CGTACGT", "GAGTGGA", "ACTGATA", "ATTCCTT"]
+    barcode_names = ["index_01", "index_03", "index_08", "index_09", "index_10", "index_11",
+                    "index_20", "index_21", "index_22", "index_23", "index_25", "index_27"]
+
 
 letters = set("ACGT")
 
@@ -107,7 +113,7 @@ if paired == 'single':
     for seq_loc, bar_loc in zip(seq_locs_1, bar_locs):
         # can read gz or uncompressed files
         # assumes sequence and barcode files for each tile are both gz or not
-        if seq_loc_1[-3:] == '.gz':
+        if seq_loc[-3:] == '.gz':
             seq_file = gzip.open(seq_loc, mode = 'rt')
             bar_file = gzip.open(bar_loc, mode = 'rt')
         else:
@@ -117,9 +123,9 @@ if paired == 'single':
         no_match_file = open("NOMATCH.fastq", "a") # file for reads that don't match a barcode
 
         # make new file for each barcode
-        for barcode in barcodes:
-            filename = barcode + ".fastq" 
-            output_files[barcode] = open(filename, "a")
+        for x in range(0,len(barcodes)):
+            filename = barcode_names[x] + ".fastq" 
+            output_files[barcodes[x]] = open(filename, "a")
         
         while True:
             seqs, bars = section(seq_file, bar_file)
@@ -165,11 +171,11 @@ elif paired == 'paired':
         no_match_file_2 = open("NOMATCH_read2.fastq", "a")
         
         # make 2 new files - read 1 and read 2 for each barcode 
-        for barcode in barcodes:
-            filename1 = barcode + "_read1.fastq"
-            filename2 = barcode + "_read2.fastq"
-            output_files_read1[barcode] = open(filename1, "a")
-            output_files_read2[barcode] = open(filename2, "a")
+        for x in range(0, len(barcodes)):
+            filename1 = barcode_names[x] + "_read1.fastq"
+            filename2 = barcode_names[x] + "_read2.fastq"
+            output_files_read1[barcodes[x]] = open(filename1, "a")
+            output_files_read2[barcodes[x]] = open(filename2, "a")
 
         while True:
             seqs_1, bars, seqs_2 = section(seq_file_1, bar_file, seq_file_2)
