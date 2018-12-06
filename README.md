@@ -2,7 +2,7 @@
 
 Set of scripts for processing RNAseq data files.
 
-## convert_qseq_to_fastq.py:
+## convert_qseq_to_fastq.py
 Converts qseq sequence files to fastq files.
 
 Usage: python3 convert_qseq_to_fastq -i [input qseq file] -o [output fastq file] [options]
@@ -16,7 +16,7 @@ Can take gzipped or uncompressed files as input.
 
 Can filter out reads that fail the Illumina quality filter (default), or keep them in the output (option --nofilter).
 
-## demultiplexer.py:
+## demultiplexer.py
 Demultiplexes fastq files - reads with the same barcode sequence are output to the same fastq files.
 
 Usage: python3 demultiplexer.py ['set_A' or 'set_B'] ['paired' or 'single'] [path to directory with files]
@@ -45,3 +45,14 @@ ATTGATA (the barcode with one base mismatch in the second position)
 
 
 The script will output files named after the barcode sequence: index_25.fastq (index25_read1.fastq and index25_read2.fastq if paired-end), as well as a file for the unmatched reads: NOMATCH.fastq.
+
+## filter_reads_by_quality.py
+Filters reads in fastq files by overall read quality. Keeps any reads that have at least the given percent of bases at or above the given quality.
+
+usage: python3 filter_reads_by_quality.py -i [input file] -o [output file] -q [quality cutoff] -p [percent]
+
+So to keep reads with at least 80% of the bases at or above a score of 20, set -q to 20 and -p to 80.
+
+
+
+
